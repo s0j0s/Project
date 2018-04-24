@@ -80,6 +80,7 @@
         </a>
       </li>
     </ul>
+    <router-link to="second">두번째 페이지로 이동</router-link>
   </div>
 </template>
 
