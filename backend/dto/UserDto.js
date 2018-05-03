@@ -1,10 +1,10 @@
- class user {
-  constructor(userId, password, name, themaId = 0) {
-    this.userId = userId;
-    this.password = password;
-    this.name = name;
-    this.themaId = themaId;
+ class UserDto {
+  constructor(user) {
+    this.userId = user.userId;
+    this.password = user.password;
+    this.name = user.name;
+    this.themaId = user.themaId || 0;
   }
 }
 
- moudule.exports = user;
+ module.exports = UserDto;

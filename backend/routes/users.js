@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-//var userService = require('../services/userService');
+var userService = require('../services/userService');
 var UserDto = require('../dto/UserDto');
 
-router.post('/login', function(req, res, next) {
+router.post('/login', async function(req, res) {
   let user = new UserDto(req.body);
   let result = { };
 
@@ -12,7 +12,7 @@ router.post('/login', function(req, res, next) {
     result.success = 0;
     result.message = "not id or pw";
   } else {
-    //userService.login(user, result);
+    await userService.login(user, result);
   }
 
   if (result.success) {
@@ -22,7 +22,7 @@ router.post('/login', function(req, res, next) {
   res.json(result);
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
   let user = new UserDto(req.body);
   let result = { };
 
@@ -30,7 +30,7 @@ router.post('/', function(req, res, next) {
     result.success = 0;
     result.message = "not full body";
   } else {
-    //userService.createUser(user, result);
+    //await userService.createUser(user, result);
   }
 
   if (result.success) {
@@ -40,7 +40,7 @@ router.post('/', function(req, res, next) {
   res.json(result);
 });
 
-router.get('/:userId', function(req, res, next) {
+router.get('/:userId', async function(req, res, next) {
   let userId = req.params.userId;
   let result = { };
 
@@ -48,13 +48,13 @@ router.get('/:userId', function(req, res, next) {
     result.success = 0;
     result.message = "userId is empty";
   } else {
-    //userService.getUser(userId, result);
+    //await userService.getUser(userId, result);
   }
 
   res.json(result);
 });
 
-router.put('/:userId', function(req, res, next) {
+router.put('/:userId', async function(req, res, next) {
   let user = new UserDto(req.body);
   let result = { };
 
@@ -62,13 +62,13 @@ router.put('/:userId', function(req, res, next) {
     result.success = 0;
     result.message = "not full body";
   } else {
-    //userService.updateUser(user, result);
+    //await userService.updateUser(user, result);
   }
 
   res.json(result);
 });
 
-router.delete('/:userId', function(req, res, next) {
+router.delete('/:userId', async function(req, res, next) {
   let userId = req.params.userId;
   let result = { };
 
@@ -76,7 +76,7 @@ router.delete('/:userId', function(req, res, next) {
     result.success = 0;
     result.message = "userId is empty";
   } else {
-    //userService.deleteUser(userId, result);
+    //await userService.deleteUser(userId, result);
   }
 
   res.json(result);
