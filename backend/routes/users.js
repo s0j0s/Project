@@ -2,11 +2,13 @@ var express = require('express');
 var router = express.Router();
 
 var userService = require('../services/userService');
-var UserDto = require('../dto/UserDto');
 
-router.post('/login', async function(req, res) {
+var UserDto = require('../dto/UserDto');
+var ResultDto = require('../dto/ResultDto');
+
+router.post('/login', async function(req, res, next) {
   let user = new UserDto(req.body);
-  let result = { };
+  let result = new ResultDto();
 
   if (!user.userId || !user.password) {
     result.success = 0;
@@ -24,7 +26,7 @@ router.post('/login', async function(req, res) {
 
 router.post('/', async function(req, res, next) {
   let user = new UserDto(req.body);
-  let result = { };
+  let result = new ResultDto();
 
   if (!user.userId || !user.password || !user.name) {
     result.success = 0;
@@ -42,7 +44,7 @@ router.post('/', async function(req, res, next) {
 
 router.get('/:userId', async function(req, res, next) {
   let userId = req.params.userId;
-  let result = { };
+  let result = new ResultDto();
 
   if (!userId) {
     result.success = 0;
@@ -54,9 +56,11 @@ router.get('/:userId', async function(req, res, next) {
   res.json(result);
 });
 
-router.put('/:userId', async function(req, res, next) {
+router.put('/:userId', function(req, res, next) {
+  req.body.userId = req.params.userId;
   let user = new UserDto(req.body);
-  let result = { };
+  console.log(user);
+  let result = new ResultDto();
 
   if (!user.userId || !user.password || !user.name || !user.themaId) {
     result.success = 0;
@@ -70,7 +74,7 @@ router.put('/:userId', async function(req, res, next) {
 
 router.delete('/:userId', async function(req, res, next) {
   let userId = req.params.userId;
-  let result = { };
+  let result = new ResultDto();
 
   if (!userId) {
     result.success = 0;
