@@ -1,8 +1,8 @@
 class ResultDto {
   constructor() {
-    this.success = undefined;
-    this.message = undefined;
-    this.data = undefined;
+    this.success = 0;
+    this.message = '';
+    this.data = {};
   }
 }
 
