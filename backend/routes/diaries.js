@@ -10,7 +10,13 @@ router.post('/', function(req, res, next) {
   let diary = new DiaryDto(req.body);
   let result = new ResultDto();
 
-  // todo
+  if (!diary.diaryId || !diary.projectId || !diary.content
+        || !diary.startDate || !diary.endDate || !diary.importRating) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - diary add
+  }
 
   res.json(result);
 });
@@ -20,7 +26,12 @@ router.get('/', function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
 
-  // todo
+  if (!projectId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - diary all get
+  }
 
   res.json(result);
 });
@@ -31,7 +42,12 @@ router.get('/:diaryId', function(req, res, next) {
   let diaryId = req.params.diaryId;
   let result = new ResultDto();
 
-  // todo
+  if (!projectId || !diaryId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - diary get
+  }
 
   res.json(result);
 });
@@ -43,7 +59,13 @@ router.put('/:diaryId', function(req, res, next) {
   let diary = new DiaryDto(req.body);
   let result = new ResultDto();
 
-  // todo
+  if (!diary.diaryId || !diary.projectId || !diary.content
+    || !diary.startDate || !diary.endDate || !diary.importRating) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - diary update
+  }
 
   res.json(result);
 });
@@ -54,7 +76,12 @@ router.delete('/:diaryId', function(req, res, next) {
   let diaryId = req.params.diaryId;
   let result = new ResultDto();
 
-  // todo
+  if (!projectId || !diaryId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - diary remove
+  }
 
   res.json(result);
 });

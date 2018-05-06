@@ -10,7 +10,12 @@ router.post('/', function(req, res, next) {
   let chat = new ChatDto(req.body);
   let result = new ResultDto();
 
-  // todo
+  if (!chat.userId || !chat.projectId || !chat.content || !chat.date) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - chat add
+  }
 
   res.json(result);
 });
@@ -20,7 +25,12 @@ router.get('/', function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
 
-  // todo
+  if (!projectId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - chat all get
+  }
 
   res.json(result);
 });

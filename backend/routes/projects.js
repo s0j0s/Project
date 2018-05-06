@@ -9,6 +9,13 @@ router.post('/', function(req, res, next) {
   let project = new ProjectDto(req.body);
   let result = new ResultDto();
 
+  if (!project.projectId || !project.projectName || !project.projectDate) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - project add
+  }
+
   res.json(result);
 });
 
@@ -16,6 +23,13 @@ router.post('/', function(req, res, next) {
 router.get('/:projectId', function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
+
+  if (!projectId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - project get
+  }
 
   res.json(result);
 });
@@ -26,6 +40,13 @@ router.put('/:projectId', function(req, res, next) {
   let project = new ProjectDto(req.body);
   let result = new ResultDto();
 
+  if (!project.projectId || !project.projectName || !project.projectDate) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - project update
+  }
+
   res.json(result);
 });
 
@@ -33,6 +54,13 @@ router.put('/:projectId', function(req, res, next) {
 router.delete('/:projectId', function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
+
+  if (!projectId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - project remove
+  }
 
   res.json(result);
 });

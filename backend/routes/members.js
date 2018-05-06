@@ -10,7 +10,12 @@ router.post('/', function(req, res, next) {
   let projectMember = new ProjectMemberDto(req.body);
   let result = new ResultDto();
 
-  // todo
+  if (!projectMember.userId || !projectMember.projectId || !projectMember.isAdmin) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - projectMember add
+  }
 
   res.json(result);
 });
@@ -20,7 +25,12 @@ router.get('/', function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
 
-  // todo
+  if (!projectId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - projectMember all get
+  }
 
   res.json(result);
 });
@@ -31,7 +41,12 @@ router.delete('/:userId', function(req, res, next) {
   let userId = req.params.userId;
   let result = new ResultDto();
 
-  // todo
+  if (!projectId || !userId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    // todo - projectMember remove
+  }
 
   res.json(result);
 });
