@@ -10,7 +10,7 @@
         <input type="password" class="form-control" placeholder="비밀번호"><br />
         <input type="password" class="form-control" placeholder="비밀번호 확인"><br />
         <input type="text" class="form-control" placeholder="이름"><br />
-        <input type="text" class="form-control" placeholder="이메일"><br />
+        <input type="email" class="form-control" placeholder="이메일"><br />
         <button class="btn btn-lg btn-primary btn-block" type="submit">회원가입</button>
       </form>
     </div>
