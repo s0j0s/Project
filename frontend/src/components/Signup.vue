@@ -32,14 +32,14 @@ export default {
     SignUp () {
       this.$http.post('/api/users', {
         userId: this.userId,
-        passsword: this.password,
+        password: this.password,
         name: this.name,
         email: this.email
       }).then((res) => {
-        if (res.success) {
+        if (res.data.success) {
           this.$router.push('Main')
         } else {
-          alert('회원가입 실패')
+          alert('회원가입 실패 ' + res.data.message)
         }
       }).catch((err) => {
         alert(err)
