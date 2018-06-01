@@ -34,7 +34,7 @@
     </section>
 
     <footer style="background-color: #FFFFFF;">
-      <div class="footer-copyright text-center py-3" style="font-size:1rem">© Copyright 2018. All rights reserved.</div>
+      <div class="footer-copyright text-center py-3" style="font-size:1rem">Copyright &copy; 2018. All rights reserved.</div>
     </footer>
   </body>
 </template>

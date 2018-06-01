@@ -6,7 +6,8 @@
     <div class="card-body">
       <form class="form-signin">
         <h5 class="text-left" style="font-size:1em;">회원정보를 등록하세요.</h5>
-        <input type="text" class="form-control" placeholder="아이디"><br/>
+        <input type="text" class="form-control inputId" placeholder="아이디">
+        <button class="btn-md btn-default" style="font-size:0.9rem">중복검사</button><br/><br/>
         <input type="password" class="form-control" placeholder="비밀번호"><br />
         <input type="password" class="form-control" placeholder="비밀번호 확인"><br />
         <input type="text" class="form-control" placeholder="이름"><br />
@@ -34,6 +35,12 @@ export default {
   position: relative;
   height: auto;
   padding: 10px;
-  font-size: 16px;
+  font-size: 0.7rem;
+  font-family: 'Nanum Gothic';
+}
+.inputId {
+  width:73%;
+  height:100%;
+  display:inline;
 }
 </style>
