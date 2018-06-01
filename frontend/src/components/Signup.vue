@@ -4,7 +4,7 @@
       <h2 class="card-title text-center" style="color:#113366;">회원가입</h2>
     </div>
     <div class="card-body">
-      <div class="form-signin" @submit.prevent="SignUp">
+      <div class="form-signin">
         <h5 class="text-left" style="font-size:1em;">회원정보를 등록하세요.</h5>
         <input v-model="userId" type="text" class="form-control inputId" placeholder="아이디">
         <button class="btn-md btn-default" style="font-size:0.9rem" @click="IdCheck">중복검사</button><br/><br/>

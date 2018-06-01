@@ -16,9 +16,9 @@ exports.login = async function (user) {
 
 
 exports.create = async function (user) {
-  let sql = "INSERT INTO User VALUES (?, ?, ?, ?)";
+  let sql = "INSERT INTO User VALUES (?, ?, ?, ?, ?)";
   try {
-    let row = await pool.query(sql, [user.userId, user.password, user.name, user.themaId]);
+    let row = await pool.query(sql, [user.userId, user.password, user.name, user.email, user.themaId]);
     if (row.affectedRows == 0) throw "affectedRows Zero";
     return row;
   } catch (err) {

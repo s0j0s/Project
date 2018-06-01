@@ -3,6 +3,7 @@
     this.userId = user.userId;
     this.password = user.password;
     this.name = user.name;
+    this.email = user.email;
     this.themaId = user.themaId || 0;
   }
 }
