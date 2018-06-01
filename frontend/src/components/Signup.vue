@@ -8,7 +8,7 @@
         <h5 class="text-left" style="font-size:1em;">회원정보를 등록하세요.</h5>
         <input v-model="userId" type="text" class="form-control" placeholder="아이디"><br/>
         <input v-model="password" type="password" class="form-control" placeholder="비밀번호"><br />
-        <input type="password" class="form-control" placeholder="비밀번호 확인"><br />
+        <input v-model="password2" type="password" class="form-control" placeholder="비밀번호 확인"><br />
         <input v-model="name" type="text" class="form-control" placeholder="이름"><br />
         <input v-model="email" type="email" class="form-control" placeholder="이메일"><br />
         <button class="btn btn-lg btn-primary btn-block">회원가입</button>
@@ -24,12 +24,24 @@ export default {
     return {
       userId: '',
       password: '',
+      password2: '',
       name: '',
       email: ''
     }
   },
   methods: {
     SignUp () {
+      if (!this.userId) {
+        alert('아이디를 입력해주세요'); return
+      } else if (!this.password) {
+        alert('패스워드를 입력해주세요'); return
+      } else if (!this.name) {
+        alert('이름을 입력해주세요'); return
+      } else if (!this.email) {
+        alert('이메일을 입력해주세요'); return
+      } else if (this.password !== this.password2) {
+        alert('첫 비밀번호가 두번째 비밀번호와 일치하지 않습니다.'); return
+      }
       this.$http.post('/api/users', {
         userId: this.userId,
         password: this.password,
