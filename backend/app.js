@@ -8,6 +8,10 @@ var history = require('connect-history-api-fallback');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var projectsRouter = require('./routes/projects');
+var diariesRouter = require('./routes/diaries');
+var chatsRouter = require('./routes/chats');
+var membersRouter = require('./routes/members');
 
 var app = express();
 
@@ -22,6 +26,10 @@ app.use(cookieParser());
 
 // api-mapping
 app.use('/api/users', usersRouter);
+app.use('/api/projects', projectsRouter);
+app.use('/api/projects/:projectId/diaries', diariesRouter);
+app.use('/api/projects/:projectId/chats', chatsRouter);
+app.use('/api/projects/:projectId/members', membersRouter);
 // history mode
 app.use(history());
 app.use(express.static(path.join(__dirname, 'public')));
