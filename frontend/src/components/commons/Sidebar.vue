@@ -1,0 +1,46 @@
+<template>
+  <div class="side-nav">
+    <div class="logo">
+      <img src="../../assets/calendar.png" width="20" height="20">
+      <span class="mr-3">모두의 다이어리</span>
+    </div>
+    <nav>
+      <ul>
+        <li>
+            <router-link to="Diary">
+              <img src="../../assets/diary_icon.png">
+              <span>일정</span>
+            </router-link>
+        </li>
+        <li>
+          <router-link to="Chat">
+            <img src="../../assets/chat_icon.png">
+             <span>채팅</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="Setting">
+            <img src="../../assets/setting_icon.png">
+            <span>설정</span>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="Project">
+            <img src="../../assets/project_icon.png">
+              <span>프로젝트 목록</span>
+          </router-link>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Sidebar"
+}
+</script>
+
+<style scoped>
+
+</style>
