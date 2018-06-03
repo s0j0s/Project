@@ -29,7 +29,7 @@ router.post('/', async function(req, res, next) {
   let user = new UserDto(req.body);
   let result = new ResultDto();
 
-  user.themaId = 0; // default
+  user.themeId = 0; // default
   if (!user.userId || !user.password || !user.name) {
     result.success = 0;
     result.message = "Not full body";
@@ -64,8 +64,7 @@ router.put('/:userId', async function(req, res, next) {
   req.body.userId = req.params.userId;
   let user = new UserDto(req.body);
   let result = new ResultDto();
-
-  if (!user.userId || !user.password || !user.name || !user.themaId) {
+  if (!user.userId || !user.password || !user.name || user.themeId == undefined) {
     result.success = 0;
     result.message = "Not full body";
   } else {

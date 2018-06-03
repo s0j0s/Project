@@ -71,7 +71,7 @@ export default {
           email: this.email
         })
         if (res.data.success) {
-          this.$router.push('Main')
+          this.$router.push('diary')
         } else {
           throw new Error('회원가입 실패 ' + res.data.message)
         }

@@ -5,15 +5,23 @@
       <span>모두의 다이어리</span>
     </div>
     <div class="d-flex flex-row-reverse">
-      <button class="btn btn-sm m-2 mr-3" style="font-size:0.8rem;">로그아웃</button>
+      <button @click="logOut" class="btn btn-sm m-2 mr-3" style="font-size:0.8rem;">로그아웃</button>
     </div>
     <a href="#" class="nav-trigger"><span></span></a>
   </div>
 </template>
 
 <script>
+import Auth from '@/api/Auth'
+
 export default {
-  name: "TopNavbar"
+  name: "TopNavbar",
+  methods: {
+    logOut () {
+      Auth.logout()
+      this.$router.push('index')
+    }
+  }
 }
 </script>
 

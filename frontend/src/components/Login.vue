@@ -33,7 +33,7 @@ export default {
         alert('패스워드를 입력해주세요')
       } else if (await Auth.login(this.userId, this.password)) {
         if (!this.$route.query.redirect) {
-          this.$router.push('Main')
+          this.$router.push('diary')
         } else {
           this.$router.replace(this.$route.query.redirect || '/')
         }
