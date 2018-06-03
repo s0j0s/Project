@@ -5,6 +5,8 @@
 </template>
 
 <script>
+import 'expose-loader?$!expose-loader?jQuery!jquery'
+import 'bootstrap'
 export default {
   name: 'App'
 }
