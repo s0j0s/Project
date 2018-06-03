@@ -3,8 +3,18 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import Login from '@/components/Login'
 import Signup from '@/components/Signup'
+import Auth from '@/api/Auth'
 
 Vue.use(Router)
+
+const requireAuth = (to, from, next) => {
+  if (Auth.loggedIn()) return next()
+  alert('로그인이 필요합니다')
+  next({
+    path: '/login',
+    query: {redirect: to.fullPath}
+  })
+}
 
 export default new Router({
   mode: 'history',
