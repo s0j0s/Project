@@ -10,7 +10,7 @@
         <div class="row p-3">
           <div class="col-md-6">
             <div class="list-group">
-              <div href="#" class="list-group-item active">개인정보 수정</div>
+              <div class="list-group-item" style="background-color: #0497df; color:white;">개인정보 수정</div>
               <div class="list-group-item">
                 <div>
                   <div class="form-group">

@@ -7,7 +7,7 @@
     <div class="d-flex flex-row-reverse">
       <button @click="logOut" class="btn btn-sm m-2 mr-3" style="font-size:0.8rem;">로그아웃</button>
     </div>
-    <a href="#" class="nav-trigger"><span></span></a>
+    <a hrer="#" class="nav-trigger"><span></span></a>
   </div>
 </template>
 
@@ -23,6 +23,11 @@ export default {
     }
   }
 }
+$(document).ready(function() {
+  $('.nav-trigger').click(function() {
+    $('.side-nav').toggleClass('visible');
+  });
+});
 </script>
 
 <style>
