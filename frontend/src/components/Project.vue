@@ -9,18 +9,25 @@
 
       <div class="container mt-3">
         <button class="btn btn-primary" data-toggle="modal" data-target="#member">멤버관리</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#projectadd">추가</button>
-        <button class="btn btn-primary">삭제</button>
+        <button class="btn btn-primary" data-toggle="modal" data-target="#projectadd" @click="inputProjectName=''">추가</button>
+        <button class="btn btn-primary" @click="delProject">삭제</button>
         <div class="row p-3">
           <div class="col-md-6">
             <div class="list-group">
               <div class="list-group-item" style="background-color: #0497df; color:white;">프로젝트 목록</div>
               <div class="list-group-item">
-                <div class="list-group">
-                  <div class="list-group-item list-group-item-action flex-column align-items-start">
-                    <div class="d-flex w-100 justify-content-center">
-                      <h5 class="mb-1">To Do</h5>
-                    </div>
+                <div v-if="projects && projects.length">
+                  <div class="list-group" id="list-tab" role="tablist">
+                    <template v-for="project in projects">
+                      <a v-if="project.projectId == projectId" class="list-group-item list-group-item-action active"
+                         v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
+                        {{project.projectName}}
+                      </a>
+                      <a v-else class="list-group-item list-group-item-action"
+                         v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
+                        {{project.projectName}}
+                      </a>
+                    </template>
                   </div>
                 </div>
               </div>
@@ -104,11 +111,11 @@
               <form>
                 <div class="form-group">
                   <label>내용</label>
-                  <input type="text" class="form-control">
+                  <input type="text" v-model="inputProjectName" class="form-control">
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                  <button type="button" class="btn btn-primary">등록하기</button>
+                  <button type="button" class="btn btn-primary" @click="addProject">등록하기</button>
                 </div>
               </form>
             </div>
@@ -130,6 +137,58 @@ export default {
     TopNavbar,
     ContentFooter,
     Sidebar
+  },
+  data () {
+    return {
+      projects: [{projectId: '122', projectName: 'test1'},
+        {projectId: '123', projectName: 'test2'},
+        {projectId: '124', projectName: 'test3'}],
+      projectId: localStorage.projectId,
+      inputProjectName: '',
+      isLoading: false
+    }
+  },
+  methods: {
+    selectProject (projectId) {
+      this.projectId = projectId
+    },
+    async addProject () {
+      if (!this.inputProjectName) return
+
+      try {
+        const projectName = this.inputProjectName
+        this.inputProjectName = ''
+        const res = await this.$http.post('/api/projects/', {
+          projectName: projectName
+        })
+        if (res.data.success) {
+          this.projects.push(res.data.data)
+          $('#projectadd').modal('hide')
+        } else {
+          throw new Error('프로젝트 생성 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+    },
+    async delProject () {
+      if (this.isLoading) return
+      if (!this.projectId) return
+      this.isLoading = true
+
+      try {
+        const res = await this.$http.delete('/api/projects/' + this.projectId)
+        if (res.data.success) {
+          const index = this.projects.indexOf(this.projectId)
+          this.projectId.splice(index, 1)
+        } else {
+          throw new Error('프로젝트 삭제 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+      this.isLoading = false
+    }
   }
 }
 </script>
