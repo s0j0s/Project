@@ -16,9 +16,6 @@ router.post('/login', async function(req, res, next) {
     result.message = "Not full body";
   } else {
     await userService.login(user, result);
-    if (result.success) {
-      res.cookie('userId', user.userId);
-    }
   }
 
   res.json(result);
@@ -35,10 +32,6 @@ router.post('/', async function(req, res, next) {
     result.message = "Not full body";
   } else {
     await userService.createUser(user, result);
-  }
-
-  if (result.success) {
-    res.cookie('userId', user.userId);
   }
 
   res.json(result);

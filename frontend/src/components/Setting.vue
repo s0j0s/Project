@@ -62,7 +62,7 @@ export default {
     Sidebar
   },
   data: function () {
-    // test code login Token
+    // todo test code - token
     const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0}
     localStorage.token = JSON.stringify(temp)
     // test code end
@@ -97,6 +97,7 @@ export default {
         })
         if (res.data.success) {
           alert('정보변경 성공')
+          localStorage.token = JSON.stringify(res.data.data)
           this.$router.push('diary')
         } else {
           throw new Error(' 실패 ' + res.data.message)

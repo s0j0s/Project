@@ -55,10 +55,8 @@ export default {
       container.scrollTop = scrollHeight
     },
     async getAllMsg () {
-      const token = JSON.parse(localStorage.token)
-
       try {
-        const res = await this.$http.get('/api/projects/' + token.projectId + '/chats/')
+        const res = await this.$http.get('/api/projects/' + localStorage.projectId + '/chats/')
         if (res.data.success) {
           this.msgs = res.data.data
         } else {
@@ -69,12 +67,10 @@ export default {
       }
     },
     async sendMsg () {
-      const token = JSON.parse(localStorage.token)
-
       if (!this.inputMsg) return
 
       try {
-        const res = await this.$http.post('/api/projects/' + token.projectId + '/chats/', {
+        const res = await this.$http.post('/api/projects/' + localStorage.projectId + '/chats/', {
           userId: token.userId,
           content: this.inputMsg
         })
@@ -91,7 +87,7 @@ export default {
     }
   },
   created () {
-    // test code login Token
+    // todo test code Token
     const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: '123'}
     localStorage.token = JSON.stringify(temp)
     // test code end

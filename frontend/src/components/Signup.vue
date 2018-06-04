@@ -72,6 +72,8 @@ export default {
         })
         if (res.data.success) {
           this.$router.push('diary')
+          localStorage.token = JSON.stringify(res.data.data)
+          localStorage.room = res.data.data.userId
         } else {
           throw new Error('회원가입 실패 ' + res.data.message)
         }
