@@ -67,7 +67,7 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <input type="text" id="keyword" class="form-control" name="keyword" placeholder="유저 ID 입력 (ex: tkqlzz)" style="width:300px; display:inline;">
+                <input type="text" id="keyword" class="form-control" name="keyword" placeholder="유저 ID 입력 (ex: tkqlzz)" style="width:70%; display:inline;">
                 <button type="button" class="btn btn-primary">검색</button>
               </div>
               <div>
