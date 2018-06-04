@@ -32,9 +32,6 @@ router.get('/', async function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
 
-  console.log(projectId);
-  console.log(result);
-
   if (!projectId) {
     result.success = 0;
     result.message = "Not full body";

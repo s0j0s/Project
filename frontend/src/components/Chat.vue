@@ -1,24 +1,26 @@
 <template>
   <body>
-    <TopNavbar />
-    <Sidebar />
-    <div class="main-content">
-      <div class="title text-left">
-        채팅
-      </div>
-
-      <div class="chatbody wrapper mt-5">
-
-        <div id="chatbox"></div>
-
-        <form name="message d-flex flex-row" action="">
-          <input name="usermsg" type="text" id="usermsg" size="63" />
-          <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
-        </form>
-      </div>
-
+  <TopNavbar />
+  <Sidebar />
+  <div class="main-content">
+    <div class="title text-left">
+      채팅
     </div>
-    <ContentFooter />
+    <div class="chat-wrap">
+      <div v-if="msgs && msgs.length">
+        <div class="msg-wrap" v-for="msg of msgs">
+          <small class="float-right">{{msg.date}}</small>
+          <h5 class="msg-head">{{msg.userId}}</h5>
+          <small class="col-lg-10">{{msg.content}}</small>
+        </div>
+      </div>
+    </div>
+    <div class="input-group">
+      <input v-model='inputMsg' @keyup.enter='sendMsg' id="btn-input" type="text" class="form-control" placeholder="Type your message here..." />
+      <button @click='sendMsg' class="btn btn-warning" id="btn-chat">Send</button>
+    </div>
+  </div>
+  <ContentFooter />
   </body>
 </template>
 
@@ -31,51 +33,110 @@ export default {
     TopNavbar,
     ContentFooter,
     Sidebar
+  },
+  sockets: {
+    connect () {
+      this.getAllMsg()
+    },
+    chat_msg (chat) {
+      this.msgs.push(chat)
+    }
+  },
+  data () {
+    return {
+      msgs: [],
+      inputMsg: ''
+    }
+  },
+  methods: {
+    scrollToEnd () {
+      var container = document.querySelector(".chat-wrap")
+      var scrollHeight = container.scrollHeight
+      container.scrollTop = scrollHeight
+    },
+    async getAllMsg () {
+      const token = JSON.parse(localStorage.token)
+
+      try {
+        const res = await this.$http.get('/api/projects/' + token.projectId + '/chats/')
+        if (res.data.success) {
+          this.msgs = res.data.data
+        } else {
+          throw new Error('채팅 조회 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+    },
+    async sendMsg () {
+      const token = JSON.parse(localStorage.token)
+
+      if (!this.inputMsg) return
+
+      try {
+        const res = await this.$http.post('/api/projects/' + token.projectId + '/chats/', {
+          userId: token.userId,
+          content: this.inputMsg
+        })
+        if (res.data.success) {
+          this.inputMsg = ''
+          this.msgs.push(res.data.data)
+          this.$socket.emit('chat_msg', res.data.data)
+        } else {
+          throw new Error('채팅 전송 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+    }
+  },
+  created () {
+    // test code login Token
+    const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: '123'}
+    localStorage.token = JSON.stringify(temp)
+    // test code end
+    this.getAllMsg()
+  },
+  mounted () {
+    this.scrollToEnd()
+  },
+  updated () {
+    this.scrollToEnd()
   }
 }
 </script>
 
 <style scoped>
-  .chatbody {
-    font:12px arial;
-    color: #222;
-    text-align:center;
-    padding-top : 35px;
+  .main-content
+  {
+    height: 110vh;
+    background: white;
   }
-
-  form, p, span {
-    margin:0;
-    padding:0; }
-
-  input { font:12px arial; }
-
-  a {
-    color:#0000FF;
-    text-decoration:none; }
-
-  a:hover { text-decoration:underline; }
-
-  .wrapper{
-    margin:0 auto;
-    padding-bottom:25px;
-    background:#EBF4FB;
-    width:504px;
-    border:1px solid #ACD8F0; }
-
-  #chatbox {
-    text-align:left;
-    margin:0 auto;
-    margin-bottom:25px;
+  .chat-wrap
+  {
+    box-shadow: 0 0 3px #ddd;
+    padding: 20px 20px;
+    background: white;
+    max-height: 80vh;
+    overflow: auto;
+  }
+  .input-group
+  {
+    position: fixed;
+    width: 80%;
+    bottom: 25px;
+    box-shadow: 0 0 3px #ddd;
+    padding: 20px 20px;
+    background: white;
+  }
+  .msg-wrap
+  {
     padding:10px;
-    background:#fff;
-    height:270px;
-    width:430px;
-    border:1px solid #ACD8F0;
-    overflow:auto;
+    max-height: 200px;
+    overflow: auto;
   }
-
-  #usermsg {
-    width:395px;
-    border:1px solid #ACD8F0;
+  .msg-head
+  {
+    font-weight: 700;
   }
 </style>

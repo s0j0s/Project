@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var socket_io = require('socket.io')
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -14,6 +15,9 @@ var chatsRouter = require('./routes/chats');
 var membersRouter = require('./routes/members');
 
 var app = express();
+
+var io = socket_io();
+app.io = io;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -51,6 +55,19 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.io.on('connection', function (socket) {
+  console.log('1 user connected..');
+  socket.on('chat_msg', function (chat) {
+    socket.broadcast.to(chat.projectId).emit('chat_msg', chat)
+  });
+  socket.on('join', function (room) {
+    socket.join(room)
+  })
+  socket.on('disconnect', function () {
+    console.log('1 user disconnected');
+  });
 });
 
 module.exports = app;

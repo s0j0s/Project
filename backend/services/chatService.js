@@ -6,7 +6,7 @@ exports.creatChat = async function (chat, result) {
     let row = await chatDao.create(chat);
     result.success = 1;
     result.message = "ok";
-    result.data['chat'] = chat;
+    result.data = chat;
   } catch (err) {
     result.success = 0;
     result.message = err;
@@ -19,7 +19,7 @@ exports.getAllChat = async function (projectId, result) {
     let rows = await chatDao.getAll(projectId);
     result.success = 1;
     result.message = "ok";
-    result.data['chat'] = rows;
+    result.data = rows;
   } catch (err) {
     result.success = 0;
     result.message = err;
