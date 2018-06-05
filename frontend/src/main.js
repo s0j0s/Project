@@ -8,6 +8,7 @@ import socket from './socket'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.$EventBus = new Vue();
 
 /* eslint-disable no-new */
 new Vue({

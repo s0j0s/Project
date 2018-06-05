@@ -5,7 +5,7 @@
     </div>
     <div class="chat-wrap">
       <div v-if="msgs && msgs.length">
-        <div class="msg-wrap" v-for="msg of msgs">
+        <div class="msg-wrap" v-for="msg of msgs" v-bind:key="msg">
           <small class="float-right">{{msg.date}}</small>
           <h5 class="msg-head">{{msg.userId}}</h5>
           <small class="col-lg-10">{{msg.content}}</small>
@@ -81,6 +81,9 @@ export default {
       } catch (err) {
         alert(err)
       }
+    },
+    selectProject () {
+      this.getAllMsg()
     }
   },
   created () {
@@ -88,6 +91,7 @@ export default {
     const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: '123'}
     localStorage.token = JSON.stringify(temp)
     // test code end
+    this.$EventBus.$on('selectProject', this.selectProject)
     this.getAllMsg()
   },
   mounted () {
@@ -95,7 +99,13 @@ export default {
   },
   updated () {
     this.scrollToEnd()
+  },
+  watch: {
+    token: function () {
+      alert('변경!')
+    }
   }
+
 }
 </script>
 

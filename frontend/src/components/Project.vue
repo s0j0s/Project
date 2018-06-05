@@ -13,18 +13,21 @@
             <div class="list-group">
               <div class="list-group-item" style="background-color: #0497df; color:white;">프로젝트 목록</div>
               <div class="list-group-item">
-                <div v-if="projects && projects.length">
-                  <div class="list-group" id="list-tab" role="tablist">
-                    <template v-for="project in projects">
-                      <a v-if="project.projectId == projectId" class="list-group-item list-group-item-action active"
-                         @click="selectProject(project)" v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
-                        {{project.projectName}}
-                      </a>
-                      <a v-else class="list-group-item list-group-item-action"
-                         @click="selectProject(project)" v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
-                        {{project.projectName}}
-                      </a>
-                    </template>
+                <div id="user" class="list-group-item list-group-item-secondary disabled">
+                  개인용
+                </div>
+                <div class="list-group" id="list-tab" role="tablist">
+                  <div v-if="projects && projects.length">
+                  <template v-for="project in projects">
+                    <a v-if="project.projectId == projectId" class="list-group-item list-group-item-action active"
+                       @click="selectProject(project)" v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
+                      {{project.projectName}}
+                    </a>
+                    <a v-else class="list-group-item list-group-item-action"
+                       @click="selectProject(project)" v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
+                      {{project.projectName}}
+                    </a>
+                  </template>
                   </div>
                 </div>
               </div>
@@ -178,6 +181,7 @@ export default {
         if (res.data.success) {
           this.projects.push(res.data.data)
           $('#projectadd').modal('hide')
+          this.$EventBus.$emit('pushProject', res.data.data)
         } else {
           throw new Error('프로젝트 생성 실패 ' + res.data.message)
         }
@@ -196,6 +200,7 @@ export default {
           const index = this.projects.indexOf(this.project)
           this.projects.splice(index, 1)
           this.projectId = ''
+          this.$EventBus.$emit('delProject', this.project)
         } else {
           throw new Error('프로젝트 삭제 실패 ' + res.data.message)
         }

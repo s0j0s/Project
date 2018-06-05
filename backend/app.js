@@ -63,8 +63,13 @@ app.io.on('connection', function (socket) {
     socket.broadcast.to(chat.projectId).emit('chat_msg', chat)
   });
   socket.on('join', function (room) {
+    console.log('1 user join room.. ' + room);
     socket.join(room)
-  })
+  });
+  socket.on('leave', function (room) {
+    console.log('1 user leave room.. ' + room);
+    socket.leave(room)
+  });
   socket.on('disconnect', function () {
     console.log('1 user disconnected');
   });

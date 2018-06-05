@@ -6,19 +6,30 @@ export const SocketInstance = socketio('http://localhost:3000') // 'http://local
 
 Vue.use(VueSocketIO, SocketInstance)
 
+
 export default new Vue({
+  data: {
+    projectId: localStorage.projectId
+  },
   sockets: {
     connect () {
       Vue.prototype.isConnected = true
-      // todo test code - socket room id
-      localStorage.projectId = '123'
-      // test code end
       if (localStorage.projectId) {
         this.$socket.emit('join', localStorage.projectId)
+        this.projectId = localStorage.projectId
       }
     },
     disconnect () {
       Vue.prototype.isConnected = false
+    }
+  },
+  methods: {
+    selectProject () {
+      if (this.projectId) {
+        this.$socket.emit('leave', this.projectId)
+      }
+      this.$socket.emit('join', localStorage.projectId)
+      this.projectId = localStorage.projectId
     }
   }
 })
