@@ -229,8 +229,10 @@ export default {
     },
     async searchMember (userId) {
       if (this.isLoading) return
+      this.searchResult = ''
       if (!userId || !this.projectId) return
       this.isLoading = true
+
 
       try {
         const res = await this.$http.get('/api/users/like/' + userId + '/projects/' + this.projectId)

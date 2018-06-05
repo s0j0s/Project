@@ -63,7 +63,7 @@ export default {
     },
     async sendMsg () {
       if (!this.inputMsg) return
-      if (!this.localStorage.token) return
+      if (!localStorage.token) return
 
       try {
         const token = JSON.parse(localStorage.token)
