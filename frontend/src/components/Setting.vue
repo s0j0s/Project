@@ -1,7 +1,4 @@
 <template>
-  <body>
-    <TopNavbar />
-    <Sidebar />
     <div class="main-content">
       <div class="title text-left">
         설정
@@ -46,8 +43,6 @@
         </div>
        </div>
       </div>
-    <ContentFooter />
-  </body>
 </template>
 
 <script>

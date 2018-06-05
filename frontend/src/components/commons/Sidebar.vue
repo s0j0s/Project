@@ -7,25 +7,25 @@
     <nav>
       <ul>
         <li>
-            <router-link to="Diary">
+            <router-link to="/diary">
               <img src="../../assets/diary_icon.png">
               <span>일정</span>
             </router-link>
         </li>
         <li>
-          <router-link to="Chat">
+          <router-link to="/chat">
             <img src="../../assets/chat_icon.png">
              <span>채팅</span>
           </router-link>
         </li>
         <li>
-          <router-link to="Setting">
+          <router-link to="/setting">
             <img src="../../assets/setting_icon.png">
             <span>설정</span>
           </router-link>
         </li>
         <li>
-          <router-link to="Project">
+          <router-link to="/project">
             <img src="../../assets/project_icon.png">
               <span>프로젝트 목록</span>
           </router-link>

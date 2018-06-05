@@ -1,7 +1,4 @@
 <template>
-  <body>
-  <TopNavbar />
-  <Sidebar />
   <div class="main-content">
     <div class="title text-left">
       채팅
@@ -20,8 +17,6 @@
       <button @click='sendMsg' class="btn btn-warning" id="btn-chat">Send</button>
     </div>
   </div>
-  <ContentFooter />
-  </body>
 </template>
 
 <script>

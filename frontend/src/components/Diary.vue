@@ -1,21 +1,18 @@
 <template>
-  <body>
-    <TopNavbar />
-    <Sidebar />
     <div class="main-content">
       <div class="title text-left">
         일정
       </div>
 
       <div class="container mt-3">
-        <button class="btn btn-primary">캘린더</button>
-        <button class="btn btn-primary">중요도순</button>
-        <button class="btn btn-primary">목록</button>
+        <router-link to="/diary/calendar"><button class="btn btn-primary">캘린더</button></router-link>
+        <router-link to="/diary/importance"><button class="btn btn-primary">중요도순</button></router-link>
+        <router-link to="/diary/list"><button class="btn btn-primary">목록</button></router-link>
       </div>
 
+      <router-view></router-view>
+
     </div>
-    <ContentFooter />
-  </body>
 </template>
 
 <script>

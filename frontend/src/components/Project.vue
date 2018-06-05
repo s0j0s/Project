@@ -1,7 +1,4 @@
 <template>
-  <body>
-    <TopNavbar />
-    <Sidebar />
     <div class="main-content">
       <div class="title text-left">
         프로젝트 목록
@@ -137,8 +134,6 @@
         </div>
       </div>
     </div>
-    <ContentFooter />
-  </body>
 </template>
 
 <script>
