@@ -61,3 +61,16 @@ exports.delete = async function (user) {
     throw err;
   }
 }
+
+
+exports.getLikes = async function (userId, projectId) {
+  let sql = "SELECT a.userId, a.name, @num:=@num+1 AS number FROM User a, (SELECT @num:=0) c WHERE a.userId LIKE '%" + userId + "%' AND " +
+    "NOT EXISTS (SELECT 1 FROM Project_Member b WHERE b.projectId = ? AND a.userId = b.userId)";
+  try {
+    let rows = await pool.query(sql, [projectId]);
+    if (!rows[0]) throw "none account";
+    return rows;
+  } catch (err) {
+    throw err;
+  }
+}

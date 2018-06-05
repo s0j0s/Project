@@ -1,19 +1,27 @@
 var express = require('express');
+var moment = require('moment');
 var router = express.Router();
+
+var projectService = require('../services/projectService');
 
 var ProjectDto = require('../dto/ProjectDto');
 var ResultDto = require('../dto/ResultDto');
 
 // 프로젝트 추가
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
   let project = new ProjectDto(req.body);
+  let userId = req.body.userId
   let result = new ResultDto();
 
-  if (!project.projectId || !project.projectName || !project.projectDate) {
+  if (!project.projectDate) {
+    project.projectDate = (moment().format()).substring(0, 19).replace('T', ' ');
+  }
+
+  if (!project.projectName || !project.projectDate) {
     result.success = 0;
     result.message = "Not full body";
   } else {
-    // todo - project add
+    await projectService.add(project, userId, result);
   }
 
   res.json(result);
@@ -51,7 +59,7 @@ router.put('/:projectId', function(req, res, next) {
 });
 
 // 프로젝트 삭제
-router.delete('/:projectId', function(req, res, next) {
+router.delete('/:projectId', async function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
 
@@ -59,7 +67,22 @@ router.delete('/:projectId', function(req, res, next) {
     result.success = 0;
     result.message = "Not full body";
   } else {
-    // todo - project remove
+    await projectService.delete(projectId, result);
+  }
+
+  res.json(result);
+});
+
+// 유저 프로젝트 조회
+router.get('/users/:userId', async function(req, res, next) {
+  let userId = req.params.userId;
+  let result = new ResultDto();
+
+  if (!userId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    await projectService.getAll(userId, result);
   }
 
   res.json(result);

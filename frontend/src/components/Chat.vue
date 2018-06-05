@@ -68,8 +68,10 @@ export default {
     },
     async sendMsg () {
       if (!this.inputMsg) return
+      if (!this.localStorage.token) return
 
       try {
+        const token = JSON.parse(localStorage.token)
         const res = await this.$http.post('/api/projects/' + localStorage.projectId + '/chats/', {
           userId: token.userId,
           content: this.inputMsg

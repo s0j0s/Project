@@ -63,3 +63,16 @@ exports.deleteUser = async function (user, result) {
     result.message = err;
   }
 }
+
+
+exports.getLikeUsers = async function (userId, projectId, result) {
+  try {
+    let rows = await userDao.getLikes(userId, projectId);
+    result.success = 1;
+    result.message = "ok";
+    result.data = rows;
+  } catch (err) {
+    result.success = 0;
+    result.message = err;
+  }
+}

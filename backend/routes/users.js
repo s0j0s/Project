@@ -81,4 +81,19 @@ router.delete('/:userId', async function(req, res, next) {
   res.json(result);
 });
 
+router.get('/like/:userId/projects/:projectId', async function(req, res, next) {
+  let userId = req.params.userId;
+  let projectId = req.params.projectId;;
+  let result = new ResultDto();
+
+  if (!userId || !projectId) {
+    result.success = 0;
+    result.message = "Not full body";
+  } else {
+    await userService.getLikeUsers(userId, projectId, result);
+  }
+
+  res.json(result);
+});
+
 module.exports = router;

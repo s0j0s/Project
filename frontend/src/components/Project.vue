@@ -8,7 +8,7 @@
       </div>
 
       <div class="container mt-3">
-        <button class="btn btn-primary" data-toggle="modal" data-target="#member">멤버관리</button>
+        <button @click="onMemberPopup" class="btn btn-primary" data-toggle="modal">멤버관리</button>
         <button class="btn btn-primary" data-toggle="modal" data-target="#projectadd" @click="inputProjectName=''">추가</button>
         <button class="btn btn-primary" @click="delProject">삭제</button>
         <div class="row p-3">
@@ -20,11 +20,11 @@
                   <div class="list-group" id="list-tab" role="tablist">
                     <template v-for="project in projects">
                       <a v-if="project.projectId == projectId" class="list-group-item list-group-item-action active"
-                         v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
+                         @click="selectProject(project)" v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
                         {{project.projectName}}
                       </a>
                       <a v-else class="list-group-item list-group-item-action"
-                         v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
+                         @click="selectProject(project)" v-bind:id="project.projectId" data-toggle="list" href="#" role="tab">
                         {{project.projectName}}
                       </a>
                     </template>
@@ -44,22 +44,29 @@
               <h5 class="modal-title">멤버목록</h5>
             </div>
             <div class="modal-body">
-              <div>
-                <table class="table" style="color: black; text-align: center;">
-                  <thead>
+              <table class="table" style="color: black; text-align: center;">
+                <thead>
                   <tr>
                     <td align="center" width="60">아이디</td>
                     <td align="center" width="15">이름</td>
                     <td align="center" width="15">권한</td>
                   </tr>
-                  </thead>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invite">초대</button>
-                <button type="button" class="btn btn-primary">추방</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">나가기</button>
-              </div>
+                </thead>
+                <tbody>
+                  <template v-for="member in members">
+                    <tr :class="{selected:member == selected}" @click="selected = member">
+                      <td align="center" width="60">{{member.userId}}</td>
+                      <td align="center" width="15">{{member.name}}</td>
+                      <td align="center" width="15">{{member.isAdmin}}</td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#invite" @click="searchResult=[], selected=''">초대</button>
+              <button type="button" class="btn btn-primary" @click="delMember">추방</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">나가기</button>
             </div>
           </div>
         </div>
@@ -74,24 +81,31 @@
             </div>
             <div class="modal-body">
               <div class="form-group">
-                <input type="text" id="keyword" class="form-control" name="keyword" placeholder="유저 ID 입력 (ex: tkqlzz)" style="width:70%; display:inline;">
-                <button type="button" class="btn btn-primary">검색</button>
+                <input v-model="keyword" type="text" id="keyword" class="form-control" name="keyword" placeholder="유저 ID 입력 (ex: tkqlzz)" style="width:70%; display:inline;">
+                <button @click="searchMember(keyword)" type="button" class="btn btn-primary">검색</button>
               </div>
-              <div>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <td align="center" width="10">No.</td>
-                      <td align="center" width="50">아이디</td>
-                      <td align="center" width="15">이름</td>
-                      <td align="center" width="10">#</td>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <td align="center" width="10">No.</td>
+                    <td align="center" width="50">아이디</td>
+                    <td align="center" width="15">이름</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template v-for="res in searchResult">
+                    <tr :class="{selected:res == selected}" @click="selected = res">
+                      <td align="center" width="10">{{res.number}}</td>
+                      <td align="center" width="50">{{res.userId}}</td>
+                      <td align="center" width="15">{{res.name}}</td>
                     </tr>
-                  </thead>
-                </table>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">나가기</button>
-              </div>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" @click="inviteMember">초대</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">나가기</button>
             </div>
           </div>
         </div>
@@ -122,7 +136,6 @@
           </div>
         </div>
       </div>
-
     </div>
     <ContentFooter />
   </body>
@@ -140,26 +153,32 @@ export default {
   },
   data () {
     return {
-      projects: [{projectId: '122', projectName: 'test1'},
-        {projectId: '123', projectName: 'test2'},
-        {projectId: '124', projectName: 'test3'}],
+      projects: [],
+      project: '',
       projectId: localStorage.projectId,
       inputProjectName: '',
-      isLoading: false
+      isLoading: false,
+      members: [],
+      searchResult: [],
+      selected: ''
     }
   },
   methods: {
-    selectProject (projectId) {
-      this.projectId = projectId
+    selectProject (project) {
+      this.project = project
+      this.projectId = project.projectId
     },
     async addProject () {
       if (!this.inputProjectName) return
+      if (!localStorage.token) return
 
       try {
+        const token = JSON.parse(localStorage.token)
         const projectName = this.inputProjectName
         this.inputProjectName = ''
         const res = await this.$http.post('/api/projects/', {
-          projectName: projectName
+          projectName: projectName,
+          userId: token.userId
         })
         if (res.data.success) {
           this.projects.push(res.data.data)
@@ -173,14 +192,15 @@ export default {
     },
     async delProject () {
       if (this.isLoading) return
-      if (!this.projectId) return
+      if (!this.projectId || !this.project) return
       this.isLoading = true
 
       try {
         const res = await this.$http.delete('/api/projects/' + this.projectId)
         if (res.data.success) {
-          const index = this.projects.indexOf(this.projectId)
-          this.projectId.splice(index, 1)
+          const index = this.projects.indexOf(this.project)
+          this.projects.splice(index, 1)
+          this.projectId = ''
         } else {
           throw new Error('프로젝트 삭제 실패 ' + res.data.message)
         }
@@ -188,11 +208,114 @@ export default {
         alert(err)
       }
       this.isLoading = false
+    },
+    async onMemberPopup () {
+      if (this.isLoading) return
+      if (!this.projectId || !this.project) {
+        alert('프로젝트를 먼저 선택해주세요')
+        return
+      }
+      this.isLoading = true
+
+      try {
+        const res = await this.$http.get('/api/projects/' + this.projectId + '/members/')
+        if (res.data.success) {
+          this.members = res.data.data
+          this.selected = ''
+          $('#member').modal('show')
+        } else {
+          throw new Error('프로젝트 멤버 조회 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+
+      this.isLoading = false
+    },
+    async searchMember (userId) {
+      if (this.isLoading) return
+      if (!userId || !this.projectId) return
+      this.isLoading = true
+
+      try {
+        const res = await this.$http.get('/api/users/like/' + userId + '/projects/' + this.projectId)
+        if (res.data.success) {
+          this.searchResult = res.data.data
+        } else {
+          throw new Error('유저 검색 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+
+      this.isLoading = false
+    },
+    async inviteMember () {
+      if (this.isLoading) return
+      if (!this.selected || !this.projectId) return
+      this.isLoading = true
+
+      try {
+        const res = await this.$http.post('/api/projects/' + this.projectId + '/members/', {
+          userId: this.selected.userId,
+          isAdmin: 0
+        })
+        if (res.data.success) {
+          this.members.push(res.data.data)
+          $('#invite').modal('hide')
+        } else {
+          throw new Error('멤버 추가 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+
+      this.isLoading = false
+    },
+    async delMember () {
+      if (!this.selected || !this.projectId) return
+      if (this.selected.isAdmin) { alert('관리자는 추방할 수 없습니다'); return }
+      if (this.isLoading) return
+      this.isLoading = true
+
+      try {
+        const res = await this.$http.delete('/api/projects/' + this.projectId + '/members/' + this.selected.userId)
+        if (res.data.success) {
+          const index = this.members.indexOf(this.selected)
+          this.members.splice(index, 1)
+          this.selected = ''
+        } else {
+          throw new Error('멤버 삭제 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert.log(err)
+      }
+
+      this.isLoading = false
+    }
+  },
+  async created () {
+    // todo test code Token
+    const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: '123'}
+    localStorage.token = JSON.stringify(temp)
+    // test code end
+    try {
+      const token = JSON.parse(localStorage.token)
+      const res = await this.$http.get('/api/projects/users/' + token.userId)
+      if (res.data.success) {
+        this.projects = res.data.data
+      } else {
+        throw new Error('유저 프로젝트 조회 실패 ' + res.data.message)
+      }
+    } catch (err) {
+      alert(err)
     }
   }
 }
 </script>
 
 <style scoped>
-
+tbody tr:hover, tbody tr.selected {
+  background-color: #94b8ff
+}
 </style>
