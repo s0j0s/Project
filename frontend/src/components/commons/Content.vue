@@ -8,12 +8,12 @@
 </template>
 
 <script>
-  import TopNavbar from "./TopNavbar";
-  import Sidebar from "./Sidebar";
-  import ContentFooter from "./ContentFooter";
-  export default {
-    components: {ContentFooter, Sidebar, TopNavbar}
-  }
+import TopNavbar from "./TopNavbar"
+import Sidebar from "./Sidebar"
+import ContentFooter from "./ContentFooter"
+export default {
+  components: {ContentFooter, Sidebar, TopNavbar}
+}
 </script>
 
 <style scoped>
