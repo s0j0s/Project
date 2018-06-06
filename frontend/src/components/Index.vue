@@ -22,15 +22,19 @@
     <section class="jumbotron background">
       <div class="text-center word">
         <h1 class="mb-4" style="font-size:2.5rem;">EveryOne's Diary lets you work more<br/> collaboratively and get more done.</h1>
-        <p class="lead" style="font-size:1.2rem;">Trello’s boards, lists, and cards enable you to organize and prioritize<br/>your projects in a fun, flexible and rewarding way.</p>
+        <p class="lead" style="font-size:1.2rem;">Diary enable you to organize and prioritize<br/>your projects in a fun, flexible and rewarding way.</p>
       </div>
     </section>
 
-    <section class="p-5">
-      <img src="../assets/intro1.jpg" width="100%">
+    <section class="pt-5 pl-5 pr-5" style="text-align: center; color:white;">
+      <h3>Work With Any Team</h3>
+      <h5 style="font-size:1rem">Whether it’s for work, a side project or even the next family <br/>vacation, Diary helps your team stay organized.</h5>
+      <img src="../assets/introduce1.jpg" width="80%">
     </section>
-    <section class="p-5" style="background-color: #7C8FD3;">
-      <img src="../assets/intro1.jpg" width="100%">
+    <section class="pl-5 pr-5" style="padding-top: 100px; background-color: #7C8FD3; text-align: center;  color:white;">
+      <h3>A Productivity Platform</h3>
+      <h5 style="font-size:1rem">Integrate the apps your team already uses directly into your workflow.<br/> Your team's unique business needs.</h5>
+      <img src="../assets/intro1.jpg" width="80%">
     </section>
 
     <footer style="background-color: #FFFFFF;">

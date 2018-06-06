@@ -5,8 +5,8 @@
       </div>
 
       <div class="container mt-3">
-        <button @click="onMemberPopup" class="btn btn-primary" data-toggle="modal">멤버관리</button>
-        <button class="btn btn-primary" data-toggle="modal" data-target="#projectadd" @click="inputProjectName=''">추가</button>
+        <button @click="onMemberPopup" class="btn btn-primary mr-1" data-toggle="modal">멤버관리</button>
+        <button class="btn btn-primary mr-1" data-toggle="modal" data-target="#projectadd" @click="inputProjectName=''">추가</button>
         <button class="btn btn-primary" @click="delProject">삭제</button>
         <div class="row p-3">
           <div class="col-md-6">
@@ -237,7 +237,6 @@ export default {
       this.searchResult = ''
       if (!userId || !this.projectId) return
       this.isLoading = true
-
 
       try {
         const res = await this.$http.get('/api/users/like/' + userId + '/projects/' + this.projectId)
