@@ -7,7 +7,7 @@ var projectService = require('../services/projectService');
 var ProjectDto = require('../dto/ProjectDto');
 var ResultDto = require('../dto/ResultDto');
 
-// 프로젝트 추가
+// 팀 추가
 router.post('/', async function(req, res, next) {
   let project = new ProjectDto(req.body);
   let userId = req.body.userId
@@ -27,7 +27,7 @@ router.post('/', async function(req, res, next) {
   res.json(result);
 });
 
-// 프로젝트 조회
+// 팀 조회
 router.get('/:projectId', function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
@@ -42,7 +42,7 @@ router.get('/:projectId', function(req, res, next) {
   res.json(result);
 });
 
-// 프로젝트 수정
+// 팀 수정
 router.put('/:projectId', function(req, res, next) {
   req.body.projectId = req.params.projectId;
   let project = new ProjectDto(req.body);
@@ -58,7 +58,7 @@ router.put('/:projectId', function(req, res, next) {
   res.json(result);
 });
 
-// 프로젝트 삭제
+// 팀 삭제
 router.delete('/:projectId', async function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
@@ -73,7 +73,7 @@ router.delete('/:projectId', async function(req, res, next) {
   res.json(result);
 });
 
-// 유저 프로젝트 조회
+// 유저 팀 조회
 router.get('/users/:userId', async function(req, res, next) {
   let userId = req.params.userId;
   let result = new ResultDto();

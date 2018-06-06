@@ -6,7 +6,7 @@ var ProjectMemberService = require('../services/projectMemberService');
 var ProjectMemberDto = require('../dto/ProjectMemberDto');
 var ResultDto = require('../dto/ResultDto');
 
-// 프로젝트 멤버 추가
+// 팀 멤버 추가
 router.post('/', async function(req, res, next) {
   req.body.projectId = req.params.projectId;
   let projectMember = new ProjectMemberDto(req.body);
@@ -22,7 +22,7 @@ router.post('/', async function(req, res, next) {
   res.json(result);
 });
 
-// 프로젝트 멤버 조회
+// 팀 멤버 조회
 router.get('/', async function(req, res, next) {
   let projectId = req.params.projectId;
   let result = new ResultDto();
@@ -37,7 +37,7 @@ router.get('/', async function(req, res, next) {
   res.json(result);
 });
 
-// 프로젝트 멤버 삭제
+// 팀 멤버 삭제
 router.delete('/:userId', async function(req, res, next) {
   let projectId = req.params.projectId;
   let userId = req.params.userId;

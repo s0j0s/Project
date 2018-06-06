@@ -27,7 +27,7 @@
         <li>
           <router-link to="/project">
             <img src="../../assets/project_icon.png">
-              <span>프로젝트 목록</span>
+              <span>팀 목록</span>
           </router-link>
         </li>
       </ul>

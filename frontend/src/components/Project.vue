@@ -1,7 +1,7 @@
 <template>
     <div class="main-content">
       <div class="title text-left">
-        프로젝트 목록
+        팀 목록
       </div>
 
       <div class="container mt-3">
@@ -11,7 +11,7 @@
         <div class="row p-3">
           <div class="col-md-6">
             <div class="list-group">
-              <div class="list-group-item" style="background-color: #0497df; color:white;">프로젝트 목록</div>
+              <div class="list-group-item" style="background-color: #0497df; color:white;">팀 목록</div>
               <div class="list-group-item">
                 <div id="user" class="list-group-item list-group-item-secondary disabled">
                   개인용
@@ -111,12 +111,12 @@
         </div>
       </div>
 
-      <!-- 프로젝트 추가 -->
+      <!-- 팀 추가 -->
       <div class="modal fade" id="projectadd" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">프로젝트 추가</h5>
+              <h5 class="modal-title">팀 추가</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -153,7 +153,7 @@ export default {
     return {
       projects: [],
       project: '',
-      projectId: localStorage.projectId,
+      projectId: '',
       inputProjectName: '',
       isLoading: false,
       members: [],
@@ -183,7 +183,7 @@ export default {
           $('#projectadd').modal('hide')
           this.$EventBus.$emit('pushProject', res.data.data)
         } else {
-          throw new Error('프로젝트 생성 실패 ' + res.data.message)
+          throw new Error('팀 생성 실패 ' + res.data.message)
         }
       } catch (err) {
         alert(err)
@@ -202,7 +202,7 @@ export default {
           this.projectId = ''
           this.$EventBus.$emit('delProject', this.project)
         } else {
-          throw new Error('프로젝트 삭제 실패 ' + res.data.message)
+          throw new Error('팀 삭제 실패 ' + res.data.message)
         }
       } catch (err) {
         alert(err)
@@ -212,7 +212,7 @@ export default {
     async onMemberPopup () {
       if (this.isLoading) return
       if (!this.projectId || !this.project) {
-        alert('프로젝트를 먼저 선택해주세요')
+        alert('팀을 먼저 선택해주세요')
         return
       }
       this.isLoading = true
@@ -224,7 +224,7 @@ export default {
           this.selected = ''
           $('#member').modal('show')
         } else {
-          throw new Error('프로젝트 멤버 조회 실패 ' + res.data.message)
+          throw new Error('팀 멤버 조회 실패 ' + res.data.message)
         }
       } catch (err) {
         alert(err)
@@ -307,7 +307,7 @@ export default {
       if (res.data.success) {
         this.projects = res.data.data
       } else {
-        throw new Error('유저 프로젝트 조회 실패 ' + res.data.message)
+        throw new Error('유저 팀 조회 실패 ' + res.data.message)
       }
     } catch (err) {
       alert(err)
