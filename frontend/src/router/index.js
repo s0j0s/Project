@@ -90,6 +90,6 @@ export default new Router({
           component: Project
         }
       ]
-    },
+    }
   ]
 })

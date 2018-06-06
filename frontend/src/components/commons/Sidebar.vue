@@ -5,7 +5,7 @@
       <span class="mr-3">모두의 다이어리</span>
     </div>
     <nav>
-      <ul>
+      <ul id="side-button">
         <li>
             <router-link to="/diary">
               <img src="../../assets/diary_icon.png">
