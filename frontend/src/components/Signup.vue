@@ -74,6 +74,7 @@ export default {
           this.$router.push('diary')
           localStorage.token = JSON.stringify(res.data.data)
           localStorage.projectId = res.data.data.userId
+          localStorage.projectName = res.data.data.userId
         } else {
           throw new Error('회원가입 실패 ' + res.data.message)
         }

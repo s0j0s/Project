@@ -87,10 +87,6 @@ export default {
     }
   },
   created () {
-    // todo test code Token
-    const temp = {userId: 'tkql', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: 'tkql'}
-    localStorage.token = JSON.stringify(temp)
-    // test code end
     this.$EventBus.$on('selectProject', this.selectProject)
     this.getAllMsg()
   },

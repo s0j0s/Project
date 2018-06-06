@@ -296,10 +296,6 @@ export default {
     }
   },
   async created () {
-    // todo test code Token
-    const temp = {userId: 'tkql', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: 'tkql'}
-    localStorage.token = JSON.stringify(temp)
-    // test code end
     try {
       const token = JSON.parse(localStorage.token)
       const res = await this.$http.get('/api/projects/users/' + token.userId)
