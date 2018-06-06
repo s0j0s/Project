@@ -62,6 +62,15 @@ app.io.on('connection', function (socket) {
   socket.on('chat_msg', function (chat) {
     socket.broadcast.to(chat.projectId).emit('chat_msg', chat)
   });
+  socket.on('addDiary', function (diary) {
+    socket.broadcast.to(diary.projectId).emit('addDiary', diary)
+  });
+  socket.on('updateDiary', function (diary) {
+    socket.broadcast.to(diary.projectId).emit('updateDiary', diary)
+  });
+  socket.on('delDiary', function (diaryId, projectId) {
+    socket.broadcast.to(projectId).emit('delDiary', diaryId)
+  });
   socket.on('join', function (room) {
     console.log('1 user join room.. ' + room);
     socket.join(room)

@@ -113,20 +113,13 @@ export default {
       this.$EventBus.$emit('getAllDiary')
     },
     addDiary (diary) {
-      diary.color = this.setColor(diary.importance)
-      this.events.push(diary)
+      this.$EventBus.$emit('addDiary', diary)
     },
     updateDiary (diary) {
-      const index = this.events.map(function(e) { return e.diaryId }).indexOf(parseInt(diary.diaryId))
-      this.events[index].title = diary.title
-      this.events[index].start = diary.start
-      this.events[index].end = diary.end
-      this.events[index].importance = diary.importance
-      this.events[index].color = this.setColor(diary.importance)
+      this.$EventBus.$emit('updateDiary', diary)
     },
     delDiary (diaryId) {
-      const index = this.events.map(function(e) { return e.diaryId }).indexOf(diaryId)
-      this.events.splice(index, 1)
+      this.$EventBus.$emit('delDiary', diaryId)
     }
   },
   data () {
@@ -200,7 +193,7 @@ export default {
         if (res.data.success) {
           $('#edit').modal('hide')
           this.$EventBus.$emit('updateDiary', res.data.data)
-          this.$socket.$emit('updateDiary', res.data.data)
+          this.$socket.emit('updateDiary', res.data.data)
         } else {
           throw new Error('일정 등록 실패 ' + res.data.message)
         }
@@ -222,7 +215,7 @@ export default {
         if (res.data.success) {
           $('#edit').modal('hide')
           this.$EventBus.$emit('delDiary', this.diaryId)
-          this.$socket.emit('delDiary', this.diaryId)
+          this.$socket.emit('delDiary', this.diaryId, projectId)
         } else {
           throw new Error('일정 등록 실패 ' + res.data.message)
         }
