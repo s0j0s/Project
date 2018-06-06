@@ -78,7 +78,7 @@ export default {
       if (res.data.success) {
         this.projects = [{projectId: token.userId, projectName: '개인용', projectDate: ''}].concat(res.data.data)
       } else {
-        throw new Error('유저 프로젝트 조회 실패 ' + res.data.message)
+        throw new Error('유저 팀 조회 실패 ' + res.data.message)
       }
     } catch (err) {
       console.log(err)
