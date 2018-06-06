@@ -51,6 +51,7 @@ export default new Router({
       path: "/",
       component: Content,
       redirect: "/diary",
+      beforeEnter: requireAuth,
       children: [
         {
           path: 'diary',

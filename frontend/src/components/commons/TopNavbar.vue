@@ -34,10 +34,6 @@ import Socket from '@/socket'
 export default {
   name: "TopNavbar",
   data () {
-    // todo test code - token
-    const temp = {userId: 'tkql', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0}
-    localStorage.token = JSON.stringify(temp)
-    // test code end
     const token = JSON.parse(localStorage.token)
     return {
       userId: token.userId,
