@@ -14,7 +14,7 @@ router.post('/', async function(req, res, next) {
   let result = new ResultDto();
 
   if (!project.projectDate) {
-    project.projectDate = (moment().format()).substring(0, 19).replace('T', ' ');
+    project.projectDate = (moment().format()).substring(0, 19);
   }
 
   if (!project.projectName || !project.projectDate) {

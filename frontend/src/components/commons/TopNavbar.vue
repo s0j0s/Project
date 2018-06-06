@@ -6,7 +6,7 @@
     </div>
     <div class="d-flex flex-row-reverse">
       <button @click="logout" class="btn btn-sm m-2 mr-3" style="font-size:0.8rem;">로그아웃</button>
-      <div class="btn-sm m-2 mr-3" style="font-size:0.8rem;">{{userId}}</div>
+      <div class="btn-info btn-sm m-2 mr-3" style="font-size:0.8rem;">{{userId}}</div>
       <div class="dropdown m-2 mr-3">
         <button class="btn btn-primary btn-sm dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{projectName}}
@@ -35,7 +35,7 @@ export default {
   name: "TopNavbar",
   data () {
     // todo test code - token
-    const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0}
+    const temp = {userId: 'tkql', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0}
     localStorage.token = JSON.stringify(temp)
     // test code end
     const token = JSON.parse(localStorage.token)
@@ -49,7 +49,7 @@ export default {
   methods: {
     logout () {
       Auth.logout()
-      this.$router.push('index')
+      this.$router.push('/index')
     },
     pushProject (project) {
       this.projects.push(project)

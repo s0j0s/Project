@@ -14,7 +14,7 @@ router.post('/', async function(req, res, next) {
   let result = new ResultDto();
 
   if (!chat.date) {
-    chat.date = (moment().format()).substring(0, 19).replace('T', ' ');
+    chat.date = (moment().format()).substring(0, 19);
   }
 
   if (!chat.userId || !chat.projectId || !chat.content || !chat.date) {

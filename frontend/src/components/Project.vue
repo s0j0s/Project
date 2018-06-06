@@ -298,7 +298,7 @@ export default {
   },
   async created () {
     // todo test code Token
-    const temp = {userId: '123', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: '123'}
+    const temp = {userId: 'tkql', password: '456', name: 'qwe', email: 'tk@gm', themeId: 0, projectId: 'tkql'}
     localStorage.token = JSON.stringify(temp)
     // test code end
     try {

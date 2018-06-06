@@ -7,11 +7,13 @@ import axios from 'axios'
 import socket from './socket'
 import FullCalendar from 'vue-full-calendar'
 import "fullcalendar/dist/fullcalendar.min.css";
+import StarRating from 'vue-star-rating'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype.$EventBus = new Vue();
 Vue.use(FullCalendar)
+Vue.component('star-rating', StarRating);
 
 /* eslint-disable no-new */
 new Vue({
