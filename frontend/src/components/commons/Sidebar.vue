@@ -1,5 +1,5 @@
 <template>
-  <div class="side-nav">
+  <div class="side-nav" style="position:fixed">
     <div class="logo">
       <img src="../../assets/calendar.png" width="20" height="20">
       <span class="mr-3">모두의 다이어리</span>
