@@ -18,5 +18,6 @@ export default {
   width: 100%;
   background-color: #F2F2F2;
   text-align: center;
+  z-index:1;
 }
 </style>

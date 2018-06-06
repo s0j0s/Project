@@ -89,6 +89,9 @@ $(document).ready(function () {
   $('.nav-trigger').click(function () {
     $('.side-nav').toggleClass('visible')
   })
+  $('#side-button').click(function () {
+    $('.side-nav').toggleClass('visible')
+  })
 })
 </script>
 
