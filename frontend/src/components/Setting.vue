@@ -6,7 +6,7 @@
       <div class="container">
         <div class="row p-3">
           <div class="col-md-6">
-            <div class="list-group">
+            <div class="list-group mb-5">
               <div class="list-group-item" style="background-color: #0497df; color:white;">개인정보 수정</div>
               <div class="list-group-item">
                 <div>

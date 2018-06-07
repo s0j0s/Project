@@ -1,5 +1,7 @@
 <template>
-  <full-calendar :config="config" :events="events"  @event-selected="eventSelected"/>
+  <div class="container mb-5">
+    <full-calendar :config="config" :events="events"  @event-selected="eventSelected"/>
+  </div>
 </template>
 <script>
 import moment from 'moment'

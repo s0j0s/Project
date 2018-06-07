@@ -8,7 +8,6 @@
         <div class="row p-3">
           <router-link to="/diary/calendar"><button class="btn btn-primary">캘린더</button></router-link>
           <router-link to="/diary/importance"><button class="btn btn-primary ml-2">중요도순</button></router-link>
-          <router-link to="/diary/list"><button class="btn btn-primary ml-2">목록</button></router-link>
           <button class="btn btn-primary ml-auto" data-toggle="modal" data-target="#plus" @click="init">+</button>
         </div>
       </div>

@@ -6,14 +6,14 @@
     </div>
     <div class="d-flex flex-row-reverse">
       <button @click="logout" class="btn btn-sm m-2 mr-3" style="font-size:0.8rem;">로그아웃</button>
-      <div class="btn-info btn-sm m-2 mr-3" style="font-size:0.8rem;">{{userId}}</div>
-      <div class="dropdown m-2 mr-3">
+      <div class="btn-info btn-sm m-2 mr-2" style="font-size:0.8rem;">{{userId}}</div>
+      <div class="dropdown m-2 mr-2">
         <button class="btn btn-primary btn-sm dropdown-toggle " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{projectName}}
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <h6 class="dropdown-header">{{projectName}}</h6>
-          <div class="dropdown-divider"></div>
+          <h6 class="dropdown-header" style="z-index: 200;">{{projectName}}</h6>
+          <div class="dropdown-divider" style="z-index: 200;"></div>
           <template v-for="project in projects">
             <a v-if="project.projectId != projectId" class="dropdown-item"
                @click="selectProject(project)" v-bind:id="project.projectId" href="#">
