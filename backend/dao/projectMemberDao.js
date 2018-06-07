@@ -29,7 +29,7 @@ exports.deleteInProject = async function (projectId) {
 
 
 exports.getAll = async function (projectId) {
-  let sql = "SELECT * FROM Project_Member WHERE projectId = ?";
+  let sql = "SELECT a.*, b.name FROM Project_Member a, User b WHERE a.userId = b.userId AND projectId = ?";
   try {
     let rows = await pool.query(sql, [projectId]);
     return rows;

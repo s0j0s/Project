@@ -42,7 +42,28 @@ export default {
       projects: []
     }
   },
+  sockets: {
+    addProject () {
+      this.getAllProject()
+    },
+    delProject () {
+      this.getAllProject()
+    }
+  },
   methods: {
+    async getAllProject () {
+      try {
+        const token = JSON.parse(localStorage.token)
+        const res = await this.$http.get('/api/projects/users/' + token.userId)
+        if (res.data.success) {
+          this.projects = [{projectId: token.userId, projectName: '개인용', projectDate: ''}].concat(res.data.data)
+        } else {
+          throw new Error('유저 팀 조회 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    },
     logout () {
       Auth.logout()
       this.$router.push('/index')
@@ -68,17 +89,7 @@ export default {
   async created () {
     this.$EventBus.$on('pushProject', this.pushProject);
     this.$EventBus.$on('delProject', this.delProject);
-    try {
-      const token = JSON.parse(localStorage.token)
-      const res = await this.$http.get('/api/projects/users/' + token.userId)
-      if (res.data.success) {
-        this.projects = [{projectId: token.userId, projectName: '개인용', projectDate: ''}].concat(res.data.data)
-      } else {
-        throw new Error('유저 팀 조회 실패 ' + res.data.message)
-      }
-    } catch (err) {
-      console.log(err)
-    }
+    await this.getAllProject()
   }
 }
 $(document).ready(function () {

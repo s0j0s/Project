@@ -24,6 +24,6 @@ export default {
     delete localStorage.token
   },
   loggedIn () {
-    return !!localStorage.token
+    return localStorage.token
   }
 }

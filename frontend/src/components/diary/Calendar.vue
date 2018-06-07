@@ -3,7 +3,6 @@
 </template>
 <script>
 import moment from 'moment'
-import Vue from 'vue'
 import 'font-awesome/css/font-awesome.css'
 export default {
   name: 'Calendar',

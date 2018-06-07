@@ -161,7 +161,28 @@ export default {
       selected: ''
     }
   },
+  sockets: {
+    addProject () {
+      this.getAllProject()
+    },
+    delProject () {
+      this.getAllProject()
+    }
+  },
   methods: {
+    async getAllProject () {
+      try {
+        const token = JSON.parse(localStorage.token)
+        const res = await this.$http.get('/api/projects/users/' + token.userId)
+        if (res.data.success) {
+          this.projects = res.data.data
+        } else {
+          throw new Error('유저 팀 조회 실패 ' + res.data.message)
+        }
+      } catch (err) {
+        alert(err)
+      }
+    },
     selectProject (project) {
       this.project = project
       this.projectId = project.projectId
@@ -264,6 +285,7 @@ export default {
         if (res.data.success) {
           this.members.push(res.data.data)
           $('#invite').modal('hide')
+          this.$socket.emit('addProject')
         } else {
           throw new Error('멤버 추가 실패 ' + res.data.message)
         }
@@ -285,6 +307,7 @@ export default {
           const index = this.members.indexOf(this.selected)
           this.members.splice(index, 1)
           this.selected = ''
+          this.$socket.emit('delProject')
         } else {
           throw new Error('멤버 삭제 실패 ' + res.data.message)
         }
@@ -296,17 +319,7 @@ export default {
     }
   },
   async created () {
-    try {
-      const token = JSON.parse(localStorage.token)
-      const res = await this.$http.get('/api/projects/users/' + token.userId)
-      if (res.data.success) {
-        this.projects = res.data.data
-      } else {
-        throw new Error('유저 팀 조회 실패 ' + res.data.message)
-      }
-    } catch (err) {
-      alert(err)
-    }
+    this.getAllProject()
   }
 }
 </script>

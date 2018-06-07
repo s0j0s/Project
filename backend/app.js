@@ -71,6 +71,12 @@ app.io.on('connection', function (socket) {
   socket.on('delDiary', function (diaryId, projectId) {
     socket.broadcast.to(projectId).emit('delDiary', diaryId)
   });
+  socket.on('addProject', function () {
+    socket.broadcast.emit('addProject')
+  });
+  socket.on('delProject', function () {
+    socket.broadcast.emit('delProject')
+  });
   socket.on('join', function (room) {
     console.log('1 user join room.. ' + room);
     socket.join(room)

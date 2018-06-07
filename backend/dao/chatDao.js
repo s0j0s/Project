@@ -4,7 +4,7 @@ var dbConfig = require('../config/database');
 var pool = mysql.createPool(dbConfig);
 
 exports.create = async function (chat) {
-  let sql = "INSERT INTO chat VALUES (?, ?, ?, ?)";
+  let sql = "INSERT INTO Chat VALUES (?, ?, ?, ?)";
   try {
     let row = await pool.query(sql, [chat.projectId, chat.userId, chat.content, chat.date]);
     if (row.affectedRows == 0) throw "affectedRows Zero";
